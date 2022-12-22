@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Make sure the user has provided a filename
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 filename [directory]"
+    exit 1
+fi
+
+# Set the target directory to the current working directory if not provided
+if [ "$#" -lt 2 ]; then
+    target_dir=$(pwd)
+else
+    target_dir=$2
+fi
+
+# Make sure the target directory exists
+if [ ! -d "$target_dir" ]; then
+    echo "Error: Directory $target_dir does not exist"
+    exit 1
+fi
+
+# Copy the contents of the file and save it to a new file with a .backup extension in the target directory
+cp "$1" "$target_dir/$1.backup"
+

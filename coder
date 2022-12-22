@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Check if a filename is provided
+if [ -z "$1" ]; then
+  echo "Error: No filename provided"
+  echo "USAGE: coder filename.ext"
+  echo "ext = { .py | .c | .cpp | .java | .js | .sh | .rs | .rb | .awk }"
+  exit 1
+fi
+
+# Get the file extension
+ext=${1##*.}
+
+# Get the file name without the extension
+name=${1%.*}
+
+# Write a runner code to the file based on the extension
+case "$ext" in
+  py)
+    # Python
+    echo '#!/usr/bin/env python3' > "$1"
+    echo 'print("Hello World!")' >> "$1"
+    ;;
+  c)
+    # C
+    echo '#include <stdio.h>' > "$1"
+    echo '#include <stdlib.h>' >> "$1"
+    echo '' >> "$1"
+    echo 'int main(int argc, char **argv)' >> "$1"
+    echo '{' >> "$1"
+    echo '	printf("Hello World!\n");' >> "$1"
+    echo '	return 0;' >> "$1"
+    echo '}' >> "$1"
+    ;;
+  cpp)
+    # C++
+    echo '#include <iostream>' > "$1"
+    echo 'using namespace std;' >> "$1"
+    echo '' >> "$1"
+    echo 'int main(int argc, char **argv)' >> "$1"
+    echo '{' >> "$1"
+    echo '	cout << "Hello World!" << endl;' >> "$1"
+    echo '	return 0;' >> "$1"
+    echo '}' >> "$1"
+    ;;
+  java)
+    # Java
+    echo "public class $name {" > "$1"
+    echo '	public static void main(String[] args) {' >> "$1"
+    echo '		System.out.println("Hello World!");' >> "$1"
+    echo '	}' >> "$1"
+    echo '}' >> "$1"
+    ;;
+  js)
+    # JavaScript
+    echo '#!/usr/bin/env node' > "$1"
+    echo 'console.log("Hello World!");' >> "$1"
+    ;;
+  sh)
+    # Bash
+    echo '#!/bin/bash' > "$1"
+    echo 'echo "Hello World!"' >> "$1"
+    ;;
+  rs)
+    # Rust
+    echo 'fn main() {' > "$1"
+    echo '	println!("Hello World!");' >> "$1"
+    echo '}' >> "$1"
+    ;;
+  rb)
+    # Ruby
+    echo '#!/usr/bin/env ruby' > "$1"
+    echo 'puts "Hello World!"' >> "$1"
+    ;;
+  awk)
+    # Awk
+    echo '#!/usr/bin/awk -f' > "$1"
+    echo 'BEGIN {' >> "$1"
+    echo '	print "Hello World!"' >> "$1"
+    echo '}' >> "$1"
+    ;;
+  *)
+    # Unrecognized extension
+    echo "Error: Unrecognized file extension: $ext"
+    exit 1
+    ;;
+esac
+

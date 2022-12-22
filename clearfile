@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Check if a filename is provided
+if [ -z "$1" ]; then
+  echo "Error: No filename provided"
+  exit 1
+fi
+
+# Check if the -o option is provided
+if [ "$1" = "-o" ]; then
+  # Check if a filename is provided after the -o option
+  if [ -z "$2" ]; then
+    echo "Error: No filename provided after the -o option"
+    exit 1
+  fi
+
+  # Clear the file by writing an empty string to it
+  echo "" > "$2"
+
+  # Open the file
+  nano "$2"
+else
+  # Clear the file by writing an empty string to it
+  echo "" > "$1"
+fi
+

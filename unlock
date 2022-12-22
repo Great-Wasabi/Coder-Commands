@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Check if a filename was provided as an argument
+if [ $# -eq 0 ]
+then
+  echo "Error: No filename provided"
+  exit 1
+fi
+
+# Store the filename in a variable
+filename=$1
+
+# Read the password from the file and store it in a variable
+password=$(cat ~/Bash/.password.txt)
+
+# Decrypt the file with the password
+openssl enc -d -aes-256-cbc -salt -in "$filename" -out "$filename.dec" -k "$password"
+
+# Rename the decrypted file to the original filename
+mv "$filename.dec" "$filename"
+
+# Change the color of the file to white
+chmod --changes "0666" "$filename"
+chmod u=rw,g=r,o=r "$filename"
+
+echo "File decrypted and saved over the original file. Color changed to white."
+

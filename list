@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "backup(bup)  clearfile(cf/ef/empty/emptyfile)  coder  lock  recover(rec)  rename(rnm)  run  unlock"

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Check if the required arguments are provided
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "Error: Missing arguments"
+  echo "Usage: ./rename.sh old_name new_name"
+  exit 1
+fi
+
+# Rename the file
+mv "$1" "$2"
+

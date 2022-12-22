@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Make sure a file was specified
+if [ $# -ne 1 ]
+then
+    echo "Error: No filename provided"
+    echo "USAGE: run filename.ext"
+    echo "ext = { .py | .c | .cpp | .java | .js | .sh | .rs | .rb | .awk }"
+    exit 1
+fi
+
+# Get the file extension
+extension="${1##*.}"
+
+case "$extension" in
+    awk)
+        awk -f "$1"
+        ;;
+    c)
+        gcc "$1" -o "${1%.*}"
+        ./"${1%.*}"
+        ;;
+    cpp)
+        g++ "$1" -o "${1%.*}"
+        ./"${1%.*}"
+        ;;
+    java)
+        javac "$1"
+        java "${1%.*}"
+        ;;
+    js)
+        node "$1"
+        ;;
+    py)
+        python3 "$1"
+        ;;
+    rb)
+        ruby "$1"
+        ;;
+    rs)
+        rustc "$1"
+        ./"${1%.*}"
+        ;;
+    sh)
+        bash "$1"
+        ;;
+    *)
+        echo "Error: Unsupported file type."
+        exit 1
+        ;;
+esac
+
